@@ -27,11 +27,6 @@
                         <div class="control is-expanded">
                             <input class="input" type="text" name="lat" placeholder="Latitude" required>
                         </div>
-                        {% comment %}<div class="control">
-                            <button class="button is-info">
-                                Add City
-                            </button>
-                        </div>{% endcomment %}
                     </div>
                     <div class="field">
                         <div class="control is-expanded">
@@ -58,12 +53,43 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
+                                <div class="content">
                                 <p>
+                                    <span class="title">Point : {{ data.geometry.coordinates }}</span>
                                 </p>
+                            </div>
                             </div>
                         </div>
                     </article>
                 </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column is-full">
+                <table class="table is-fullwidth">
+                    <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Air Temp</th>
+                        <th>Wind Speed</th>
+                        <th>Next 1 hours</th>
+                        <th>Next 6 hours</th>
+                        <th>Next 12 hours</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for timesery in data.properties.timeseries %}
+                        <tr>
+                            <td>{{ timesery.time }}</td>
+                            <td>{{ timesery.data.instant.details.air_temperature }}</td>
+                            <td>{{ timesery.data.instant.details.wind_speed }}</td>
+                            <td>{{ timesery.data.next_1_hours.summary.symbol_code }}</td>
+                            <td>{{ timesery.data.next_6_hours.summary.symbol_code }}</td>
+                            <td>{{ timesery.data.next_12_hours.summary.symbol_code }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

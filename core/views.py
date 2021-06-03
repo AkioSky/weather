@@ -17,7 +17,7 @@ def index(request):
 
     weather_data = requests.get('https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=51.5&lon=-0.25',
                                 headers=headers)
-    print(weather_data.text)
+
     return render(request, 'core/index.html', context={
-        'data': weather_data
+        'data': weather_data.json()
     })
